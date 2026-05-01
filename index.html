@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>席替えアプリ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>席替えアプリ</h1>
+
+  <!-- 席替え表 -->
+  <div class="panel">
+    <div class="board">黒　板</div>
+    <div class="layout-wrap"><div id="seatArea"></div></div>
+    <div class="legend" id="legendArea"></div>
+    <div id="status"></div>
+    <div class="actions">
+      <button class="btn-main" onclick="generate()">シャッフル ↺</button>
+      <button class="btn-sub" onclick="window.print()">印刷</button>
+    </div>
+  </div>
+
+  <!-- 条件編集 -->
+  <div class="panel">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(0, this)">配置条件</button>
+      <button class="tab" onclick="switchTab(1, this)">名簿</button>
+    </div>
+
+    <!-- タブ1: 配置条件 -->
+    <div class="tab-content active">
+
+      <h2>近くにしたい番号グループ</h2>
+      <div class="hint">同じグループに入れた番号は、できるだけ近くに配置されます</div>
+      <div id="groupsList"></div>
+      <button class="btn-add" onclick="addGroup()">+ グループを追加</button>
+
+      <h2>離したい番号ペア</h2>
+      <div class="hint">ペアにした番号同士は、できるだけ離れた席になります</div>
+      <div id="apartsList"></div>
+      <button class="btn-add" onclick="addApart()">+ ペアを追加</button>
+
+      <h2>前方に配置したい番号</h2>
+      <div class="hint">1〜2列目に優先的に配置されます</div>
+      <div class="item-row">
+        <span class="label">番号:</span>
+        <input type="text" id="frontInput" placeholder="例: 11, 15, 16, 20, 29, 32">
+      </div>
+
+      <div class="actions" style="margin-top: 1.5rem;">
+        <button class="btn-sub" onclick="saveSettings()">設定を保存</button>
+        <button class="btn-sub" onclick="loadSettings()">保存した設定を読込</button>
+      </div>
+    </div>
+
+    <!-- タブ2: 名簿 -->
+    <div class="tab-content">
+      <div class="hint">出席番号に対応する名前を入力してください（空欄でも可）</div>
+      <div class="roster-grid" id="rosterArea"></div>
+      <div class="actions" style="margin-top: 1.5rem;">
+        <button class="btn-sub" onclick="saveRoster()">名簿を保存</button>
+        <button class="btn-sub" onclick="clearRoster()">名簿をクリア</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
